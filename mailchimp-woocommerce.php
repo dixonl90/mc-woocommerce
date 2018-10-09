@@ -16,7 +16,7 @@
  * Plugin Name:       MailChimp for WooCommerce
  * Plugin URI:        https://mailchimp.com/connect-your-store/
  * Description:       MailChimp - WooCommerce plugin
- * Version:           1.0.9
+ * Version:           1.0.9-lsc-no-sync
  * Author:            MailChimp
  * Author URI:        https://mailchimp.com
  * License:           GPL-2.0+
@@ -39,7 +39,7 @@ function mailchimp_environment_variables() {
 	return (object) array(
 		'repo' => 'master',
 		'environment' => 'production',
-		'version' => '1.0.9',
+		'version' => '1.0.9-lsc-no-sync',
 		'wp_version' => (empty($wp_version) ? 'Unknown' : $wp_version),
 	);
 }
@@ -237,6 +237,9 @@ function run_mailchimp_plugin_updater() {
 function mailchimp_log($action, $message, $data = array())
 {
 	$options = MailChimp_Woocommerce::getLoggingConfig();
+
+	$pluginlog = plugin_dir_path(__FILE__).'app.log';
+	error_log(date('Y-m-d H:i:s')." - ".$message.PHP_EOL, 3, $pluginlog);
 
 	if (!$options->enable_logging || !$options->account_id || !$options->username) {
 		return false;
