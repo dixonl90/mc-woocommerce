@@ -72,20 +72,20 @@ class MailChimp_WooCommerce_Process_Products extends MailChimp_WooCommerce_Abtst
      */
     protected function complete()
     {
-        mailchimp_log('sync.products.completed', 'Done with the product sync :: queuing up the orders next!');
+        mailchimp_log('sync.products.completed', 'Done with the product sync :: Not syncing previous orders!');
 
         // add a timestamp for the product sync completion
-        $this->setResourceCompleteTime();
+        // $this->setResourceCompleteTime();
 
-        $prevent_order_sync = get_option('mailchimp-woocommerce-sync.orders.prevent', false);
+        // $prevent_order_sync = get_option('mailchimp-woocommerce-sync.orders.prevent', false);
 
-        // only do this if we're not strictly syncing products ( which is the default ).
-        if (!$prevent_order_sync) {
-            // since the products are all good, let's sync up the orders now.
-            wp_queue(new MailChimp_WooCommerce_Process_Orders());
-        }
+        // // only do this if we're not strictly syncing products ( which is the default ).
+        // if (!$prevent_order_sync) {
+        //     // since the products are all good, let's sync up the orders now.
+        //     wp_queue(new MailChimp_WooCommerce_Process_Orders());
+        // }
 
-        // since we skipped the orders feed we can delete this option.
-        delete_option('mailchimp-woocommerce-sync.orders.prevent');
+        // // since we skipped the orders feed we can delete this option.
+        // delete_option('mailchimp-woocommerce-sync.orders.prevent');
     }
 }

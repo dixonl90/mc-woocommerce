@@ -75,6 +75,9 @@ class MailChimp_Service extends MailChimp_Woocommerce_Options
             // expire the landing site cookie so we can rinse and repeat tracking
             $this->expireLandingSiteCookie();
 
+            // remove this record from the db.
+            $this->clearCartData();
+
             mailchimp_log('new_order', "New order #$order_id", array(
                 'campaign_id' => $campaign_id,
                 'landing_site' => $landing_site,
@@ -83,6 +86,16 @@ class MailChimp_Service extends MailChimp_Woocommerce_Options
             // queue up the single order to be processed.
             $handler = new MailChimp_WooCommerce_Single_Order($order_id, null, $campaign_id, $landing_site);
             wp_queue($handler);
+        }
+    }
+
+    /**
+     * Clear the card data for a user.
+     */
+    public function clearCartData()
+    {
+        if ($user_email = $this->getCurrentUserEmail()) {
+            $this->deleteCart(md5(trim(strtolower($user_email))));
         }
     }
 
