@@ -1829,3 +1829,4 @@
 2018-11-01 11:42:37 - handle_abandoned_cart_table.complete - mailchimp_carts housekeeping complete, rows removed: 0
 2018-11-01 11:44:37 - handle_abandoned_cart_table.processing - removing carts over 30 days old from mailchimp_carts
 2018-11-01 11:44:37 - handle_abandoned_cart_table.complete - mailchimp_carts housekeeping complete, rows removed: 0
+2018-11-01 11:46:37 - handle_abandoned_cart_table.processing - removing carts over 30 days old from mailchimp_carts
