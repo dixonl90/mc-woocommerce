@@ -42,7 +42,7 @@ class MailChimp_WooCommerce_Process_Products extends MailChimp_WooCommerce_Abtst
         if ($item instanceof MailChimp_WooCommerce_Product) {
 
             // need to run the delete option on this before submitting because the API does not support PATCH yet.
-            $this->mailchimp()->deleteStoreProduct($this->store_id, $item->getId());
+            $delete = $this->mailchimp()->deleteStoreProduct($this->store_id, $item->getId());
 
             // add the product.
             try {
