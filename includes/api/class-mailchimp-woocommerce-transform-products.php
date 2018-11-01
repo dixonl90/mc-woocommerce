@@ -62,9 +62,14 @@ class MailChimp_WooCommerce_Transform_Products
         $product->setTitle($woo->get_title());
         $product->setUrl($woo->get_permalink());
 
-        foreach ($variants as $variant) {
+        //If this product is a variant, we don't want the top level product as the price will be empty
+        $start_index = 0;
+        if($is_variant)
+            $start_index++;
 
-            $product_variant = $this->variant($is_variant, $variant, $woo->get_title());
+        for($i = $start_index; $i < count($variants); $i++)
+        {
+            $product_variant = $this->variant($is_variant, $variants[$i], $woo->get_title());
 
             $product_variant_title = $product_variant->getTitle();
 
@@ -114,10 +119,10 @@ class MailChimp_WooCommerce_Transform_Products
 
         if ($woo instanceof WC_Product_Variation) {
 
-            $variation_title = $woo->get_title();
-            if (empty($variation_title)) $variation_title = $fallback_title;
+            // $variation_title = $woo->get_title();
+            // if (empty($variation_title)) $variation_title = $fallback_title;
 
-            $title = array($variation_title);
+            // $title = array($variation_title);
 
             foreach ($woo->get_variation_attributes() as $attribute => $value) {
                 if (is_string($value)) {
@@ -126,7 +131,7 @@ class MailChimp_WooCommerce_Transform_Products
                 }
             }
 
-            $variant->setTitle(implode(' :: ', $title));
+            $variant->setTitle($fallback_title);
             $variant->setVisibility(($woo->variation_is_visible() ? 'visible' : ''));
         } else {
             $variant->setVisibility(($woo->is_visible() ? 'visible' : ''));

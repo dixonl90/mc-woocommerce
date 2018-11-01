@@ -46,7 +46,7 @@ class MailChimp_WooCommerce_Process_Products extends MailChimp_WooCommerce_Abtst
 
             // add the product.
             try {
-                mailchimp_log('sync.products.submitting', "addStoreProduct :: #{$item->getId()}");
+                mailchimp_log('sync.products.submitting', "addStoreProduct :: #{$item->getId()} {$item->getTitle()}");
 
                 // make the call
                 $response = $this->mailchimp()->addStoreProduct($this->store_id, $item);
@@ -79,7 +79,6 @@ class MailChimp_WooCommerce_Process_Products extends MailChimp_WooCommerce_Abtst
 
         // this is the last thing we're doing so it's complete as of now.
         $this->flagStopSync();
-
 
         // add a timestamp for the product sync completion
         // $this->setResourceCompleteTime();
