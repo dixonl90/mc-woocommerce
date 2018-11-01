@@ -74,6 +74,13 @@ class MailChimp_WooCommerce_Process_Products extends MailChimp_WooCommerce_Abtst
     {
         mailchimp_log('sync.products.completed', 'Done with the product sync :: Not syncing previous orders!');
 
+        // add a timestamp for the orders sync completion
+        $this->setResourceCompleteTime();
+
+        // this is the last thing we're doing so it's complete as of now.
+        $this->flagStopSync();
+
+
         // add a timestamp for the product sync completion
         // $this->setResourceCompleteTime();
 
