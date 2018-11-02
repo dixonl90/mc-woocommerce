@@ -189,11 +189,11 @@ class MailChimp_Woocommerce_Admin extends MailChimp_Woocommerce_Options {
 
 		if (get_site_option('mailchimp_woocommerce_db_mailchimp_carts', false)) {
 			// need to tidy up the mailchimp_cart table and make sure we don't have anything older than 30 days old.
-			mailchimp_log("handle_abandoned_cart_table.processing","removing carts over 30 days old from mailchimp_carts");
+			// mailchimp_log("handle_abandoned_cart_table.processing","removing carts over 30 days old from mailchimp_carts");
 			$date = gmdate( 'Y-m-d H:i:s', strtotime(date ("Y-m-d") ."-30 days"));
 			$sql = $wpdb->prepare("DELETE FROM {$wpdb->prefix}mailchimp_carts WHERE created_at <= %s", $date);
 			$deletedCount = $wpdb->query($sql);
-			mailchimp_log("handle_abandoned_cart_table.complete","mailchimp_carts housekeeping complete, rows removed: ".$deletedCount);
+			// mailchimp_log("handle_abandoned_cart_table.complete","mailchimp_carts housekeeping complete, rows removed: ".$deletedCount);
 		} else {
 
 			// create the table for the first time now.
